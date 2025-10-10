@@ -30,6 +30,15 @@ npm install -g newman
 ```
 newman run "local_da_collection" -e "local_do_environment"
 ```
+ou
+
+4. Executar testes no Github Actions
+```
+* Clicar em Actions, no menu principal do github
+* Clicar em Run Postman Collection, no menu lateral esquerdo
+* Clicar no event trigger Run workflow e escolha a branch
+* Clicar no botão Run workflow
+```
 
 <hr>
 Boas Práticas
