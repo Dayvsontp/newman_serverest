@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "ba7172a7-db44-4546-ade4-9e48130bb693",
+		"name": "Testes_Newman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21921157"
+	},
+	"item": [
+		{
+			"name": "CadastrarUsuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"let idUser = res._id || res.id;\r",
+							"pm.environment.set(\"_id\", idUser);\r",
+							"\r",
+							"pm.test(\"Status 201\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Dayvson Tavares\",\r\n  \"email\": \"dayvson@hotmail.com\",\r\n  \"password\": \"teste123\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{BASE_URL}}/usuarios"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"let token = res.authorization || res.token || res.access_token || \"\";\r",
+							"if (token.startsWith(\"Bearer \")) token = token.slice(7);\r",
+							"\r",
+							"pm.environment.set(\"token\", token);\r",
+							"\r",
+							"pm.test(\"Status 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"dayvson@hotmail.com\",\r\n    \"password\": \"teste123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{BASE_URL}}/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar_Usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": "{{BASE_URL}}/usuarios"
+			},
+			"response": []
+		},
+		{
+			"name": "ListarUsuariosByID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"quantidade = 1\", () => {\r",
+							"  pm.expect(res.quantidade).to.eql(1);\r",
+							"});\r",
+							"pm.test(\"Status 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/usuarios?_id={{_id}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"usuarios"
+					],
+					"query": [
+						{
+							"key": "_id",
+							"value": "{{_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ExcluirUsuarioByID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Excluir Registro existente\", () => {\r",
+							"  pm.expect(res.message).to.eql(\"Registro excluído com sucesso\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{BASE_URL}}/usuarios/{{_id}}"
+			},
+			"response": []
+		}
+	]
+}
