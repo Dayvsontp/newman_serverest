@@ -27,4 +27,4 @@ jobs:
 
     - name: Run Postman Collection
       run: |
-        newman run ./postman/Testes_Newman.postman_collection.json -e ./postman/Local.postman_environment.json
+        newman run ./Postman/Testes_Newman.postman_collection.json -e ./Postman/Local.postman_environment.json
