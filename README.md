@@ -2,7 +2,7 @@
 
 ## 🤘 Sobre
 
-Repositório do projeto de testes automatizados do site ServeRest, é uma ferramenta de código aberto que auxilia a automação de testes em API's e Web, oferecendo uma abordagem eficaz e altamente confiável.
+Repositório do projeto de testes automatizados com Newman, o ServeRest é uma API REST gratuita que simula uma loja virtual com intuito de servir de material de estudos de testes de API.
 
 ## 💻 Tecnologias
 - Node.js
