@@ -21,12 +21,12 @@ node >= 16
 npm install
 ```
 
-2. Executar testes em Headless
+2. Instalar o Newman
 ```
 npm install -g newman
 ```
 
-3. Executar ver o relatório dos testes
+3. Executar testes em Headless
 ```
 newman run "local_da_collection" -e "local_do_environment"
 ```
