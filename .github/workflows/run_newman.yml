@@ -1,0 +1,30 @@
+name: Run Postman Collection
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master  # Pode ser alterado para qualquer branch que você deseja monitorar
+  pull_request:
+    branches:
+      - master  # Se quiser rodar ao fazer PRs para a branch principal
+
+jobs:
+  run-postman-collection:
+    runs-on: ubuntu-latest  # Pode ser alterado para windows-latest ou macos-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2  # Faz checkout do seu repositório no GitHub
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Você pode usar a versão que preferir do Node.js
+
+    - name: Install Newman
+      run: npm install -g newman  # Instala o Newman globalmente no ambiente de CI
+
+    - name: Run Postman Collection
+      run: |
+        newman run ./postman/Testes_Newman.postman_collection.json -e ./postman/Local.postman_environment.json
