@@ -20,7 +20,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'  # Você pode usar a versão que preferir do Node.js
+        node-version: '16'  # Você pode usar a versão que preferir do Node.js
 
     - name: Install Newman
       run: npm install -g newman  # Instala o Newman globalmente no ambiente de CI
