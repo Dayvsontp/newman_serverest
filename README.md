@@ -11,7 +11,7 @@ Repositório do projeto de testes automatizados do site ServeRest, é uma ferram
 
 ## 🤖 Pré-requisito
 ```
-node => 16
+node >= 16
 ```
 
 ## 🤖 Como executar
